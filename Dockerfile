@@ -7,8 +7,6 @@ WORKDIR /app
 # Copy package.json and package-lock.json to the container
 COPY package.json package-lock.json ./
 
-# Copy the SQLite database file to the container
-COPY database.db /app/database.db
 
 # Install dependencies
 RUN npm install
