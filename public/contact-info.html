@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Information</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Contact Information</h1>
+    <table id="contactTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be inserted here dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Function to fetch data from the backend and populate the table
+    async function fetchContacts() {
+  try {
+    // Use the correct port (5000) for your API request
+    const response = await fetch('/api/contactinfo');
+    const data = await response.json();
+
+    const tableBody = document.querySelector('#contactTable tbody');
+    tableBody.innerHTML = ''; // Clear existing rows
+
+    // Insert new rows
+    data.forEach(contact => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${contact.id}</td>
+        <td>${contact.name}</td>
+        <td>${contact.email}</td>
+        <td>${contact.number}</td>
+        <td>${contact.message}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  } catch (error) {
+    console.error('Error fetching contacts:', error);
+  }
+}
+
+
+    // Call the fetchContacts function when the page loads
+    window.onload = fetchContacts;
+  </script>
+</body>
+</html>
